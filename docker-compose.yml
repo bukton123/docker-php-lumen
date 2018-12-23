@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: lumen_nginx
+    links: 
+      - php
+    ports: 
+      - 8090:80
+    volumes: 
+      - ./Docker/nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+  
+  php:
+    build: ./Docker/php
+    container_name: lumen_php
+    volumes: 
+      - ./www:/var/www/html
+    ports:
+      - "9000:9000"
